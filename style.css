@@ -26,7 +26,11 @@ header{
     justify-content: center;
     align-items: center;
     height: 300px;
-    width: 200px;
+    width: 250px;
+}
+
+.buttons{
+    display: flex;
 }
 
 .numbers{
@@ -44,9 +48,21 @@ header{
     margin: 3px;
     padding: 5px;
     background-color: bisque;
+    cursor: pointer;
 }
-
 
 #num-0{
     width: 105px;
+}
+
+.operators{
+
+}
+
+.operator{
+    width: 50px;
+    height: 30px;
+    background-color: color-mix(in srgb, orange 30%, yellow 70%);
+    margin: 3px 3px 3px 0px;
+    padding: 5px;
 }
