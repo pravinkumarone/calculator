@@ -4,40 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <script src="script.js"></script>
     <title>Calculator</title>
 </head>
 <body>
     <header>Calculator</header>
     <div class="container">
         <div class="cal">
-            <div class="screen"><p>0</p></div>
+            <div class="screen"><p id="ans"></p></div>
             <div class="buttons">
                 <div class="numbers">
                     <button id="num-0" class="nums">0</button>
                     <button id="num-." class="nums">.</button>
-                    <button class="equals">=</button>
+                    <button id="equals" class="equals">=</button>
                     <button id="num-1" class="nums">1</button>
                     <button id="num-2" class="nums">2</button>
                     <button id="num-3" class="nums">3</button>
-                    <button class="operator">+</button>
+                    <button id="plus" class="operator">+</button>
                     <button id="num-4" class="nums">4</button>
                     <button id="num-5" class="nums">5</button>
                     <button id="num-6" class="nums">6</button>
-                    <button class="operator">-</button>
+                    <button id="minus" class="operator">-</button>
                     <button id="num-7" class="nums">7</button>
                     <button id="num-8" class="nums">8</button>
                     <button id="num-9" class="nums">9</button>
-                    <button class="operator">×</button>
+                    <button id="multiply" class="operator">×</button>
                     <button id="_AC" class="nums">AC</button>
                     <button id="_plus-minus" class="nums">+/-</button>
                     <button id="_percentage" class="nums">%</button>
-                    <button class="operator">÷</button>
-                </div>
-                <div class="operators">
+                    <button id="divide" class="operator">÷</button>
                 </div>
             </div>
         </div>
     </div>
+    <script src="script.js"></script>
 </body>
 </html>

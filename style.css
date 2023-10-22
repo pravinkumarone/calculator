@@ -4,6 +4,7 @@
     box-sizing: border-box;
     font-size: 20px;
     font-weight: 500;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 header{
@@ -29,7 +30,7 @@ header{
     justify-content: center;
     align-items: center;
     height: 500px;
-    width: 300px;
+    width: 280px;
 }
 
 .screen{
@@ -41,8 +42,10 @@ header{
 .screen>p{
     text-align: right;
     padding: 10px 40px;
-    font-size: 35px;
+    font-size: 40px;
+    font-weight: 300;
 }
+
 .buttons{
     display: flex;
     width: 250px;
@@ -62,7 +65,7 @@ header{
     text-align: center;
     margin: 5px;
     padding: 4px;
-    background-color:#505050;
+    background-color:#323233;
     cursor: pointer;
     color: white;
     border-radius: 50%;
@@ -77,7 +80,7 @@ header{
 }
 
 #_AC, #_plus-minus, #_percentage{
-    background-color: #D4D4D2;
+    background-color: #A4A5A4;
     color: #1C1C1C;
     font-weight: 600;
 }
@@ -85,7 +88,7 @@ header{
 .operator, .equals{
     width: 50px;
     height: 50px;
-    background-color: #FF9500;
+    background-color: #FE9F0B;
     margin: 5px;
     padding: 4px;
     border-radius: 50%;
@@ -97,5 +100,5 @@ header{
 
 .operator.active{
     background-color: white;
-    color: #FF9500;
+    color: #FE9F0B;
 }
