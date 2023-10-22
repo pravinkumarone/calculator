@@ -2,6 +2,8 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-size: 20px;
+    font-weight: 500;
 }
 
 header{
@@ -20,17 +22,30 @@ header{
 }
 
 .cal{
+    border-radius: 25px;
     display: flex;
-    background-color: aqua;
-    flex-direction: row;
+    flex-direction: column;
+    background-color: black;
     justify-content: center;
     align-items: center;
-    height: 300px;
-    width: 250px;
+    height: 500px;
+    width: 300px;
 }
 
+.screen{
+    height: 60px;
+    background-color: black;
+    color: white;
+    width: 100%;
+}
+.screen>p{
+    text-align: right;
+    padding: 10px 40px;
+    font-size: 35px;
+}
 .buttons{
     display: flex;
+    width: 250px;
 }
 
 .numbers{
@@ -43,26 +58,44 @@ header{
 
 .nums{
     width: 50px;
-    height: 30px;
+    height: 50px;
     text-align: center;
-    margin: 3px;
-    padding: 5px;
-    background-color: bisque;
+    margin: 5px;
+    padding: 4px;
+    background-color:#505050;
     cursor: pointer;
+    color: white;
+    border-radius: 50%;
+    border: none;
 }
 
 #num-0{
     width: 105px;
+    border-radius: 40px;
+    text-align: left;
+    padding-left: 20px;
 }
 
-.operators{
-
+#_AC, #_plus-minus, #_percentage{
+    background-color: #D4D4D2;
+    color: #1C1C1C;
+    font-weight: 600;
 }
 
-.operator{
+.operator, .equals{
     width: 50px;
-    height: 30px;
-    background-color: color-mix(in srgb, orange 30%, yellow 70%);
-    margin: 3px 3px 3px 0px;
-    padding: 5px;
+    height: 50px;
+    background-color: #FF9500;
+    margin: 5px;
+    padding: 4px;
+    border-radius: 50%;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.operator.active{
+    background-color: white;
+    color: #FF9500;
 }
