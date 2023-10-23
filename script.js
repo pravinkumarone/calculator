@@ -35,6 +35,57 @@ const plusMinus = document.getElementById('_plus-minus');
 const percentage = document.getElementById('_percentage');
 
 
+const buttons = document.querySelector('.numbers > button');
+
+function number(num){
+    answer.innerHTML += num; 
+}
+
+
+
+ac.onclick = () => {
+    plus.classList.remove('active');
+    minus.classList.remove('active');
+    multiply.classList.remove('active');
+    divide.classList.remove('active');
+    answer.innerHTML = defaultZero;
+};
+
+window.addEventListener('keydown',(event) => {
+    if(event.code == "Digit1" || event.code == "Numpad1"){
+        answer.innerHTML += 1;
+    }
+    if(event.code == "Digit2" || event.code == "Numpad2"){
+        answer.innerHTML += 2;
+    }
+    if(event.code == "Digit3" || event.code == "Numpad3"){
+        answer.innerHTML += 3;
+    }
+    if(event.code == "Digit4" || event.code == "Numpad4"){
+        answer.innerHTML += 4;
+    }
+    if(event.code == "Digit5" || event.code == "Numpad5"){
+        answer.innerHTML += 5;
+    }
+    if(event.code == "Digit6" || event.code == "Numpad6"){
+        answer.innerHTML += 6;
+    }
+    if(event.code == "Digit7" || event.code == "Numpad7"){
+        answer.innerHTML += 7;
+    }
+    if(event.code == "Digit8" || event.code == "Numpad8"){
+        answer.innerHTML += 8;
+    }
+    if(event.code == "Digit9" || event.code == "Numpad9"){
+        answer.innerHTML += 9;
+    }
+    if(event.code == "Digit0" || event.code == "Numpad0"){
+        answer.innerHTML += 0;
+    }
+}, true);
+
+
+
 const answer = document.querySelector('#ans');
 answer.innerHTML = defaultZero;
 
