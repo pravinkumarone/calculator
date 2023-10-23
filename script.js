@@ -1,124 +1,186 @@
-const defaultZero = 0;
-let currentOperator = '';
+let firstOperand = '';
+let secondOperand = '';
+let shouldResetScreen = false;
+let currentOperator = null;
 
-const one = document.getElementById('num-1');
-const two = document.getElementById('num-2');
-const three = document.getElementById('num-3');
-const four = document.getElementById('num-4');
-const five = document.getElementById('num-5');
-const six = document.getElementById('num-6');
-const seven = document.getElementById('num-7');
-const eight = document.getElementById('num-8');
-const nine = document.getElementById('num-9');
-const zero = document.getElementById('num-0');
+const numberButtons = document.querySelectorAll('[data-number]')
+const operatorButtons = document.querySelectorAll('[data-operator]')
+const equalsButton = document.getElementById('equalsBtn')
+const deleteButton = document.querySelector('.deleteBtn')
+const pointButton = document.getElementById('pointBtn')
+const screen = document.getElementById('screen')
 
-const plus = document.getElementById('plus');
-const minus = document.getElementById('minus');
-const multiply = document.getElementById('multiply');
-const divide = document.getElementById('divide');
+window.addEventListener('keydown', handleKeyboardInput);
+equalsButton.addEventListener('click', evaluate)
+deleteButton.addEventListener('click', deleteNumber)
+pointButton.addEventListener('click', appendPoint)
 
-const dot = document.getElementById('num-.');
-const equals = document.getElementById('equals');
-const ac = document.getElementById('_AC');
-const plusMinus = document.getElementById('_plus-minus');
-const percentage = document.getElementById('_percentage');
+numberButtons.forEach((button) =>
+  button.addEventListener('click', () => appendNumber(button.textContent))
+)
 
-const nums= document.querySelectorAll('.nums');
-nums.forEach(num => {
-    num.addEventListener('click', () => {
-        answer.innerHTML += num.textContent;
-    })
-})
+operatorButtons.forEach((button) =>
+  button.addEventListener('click', () => setOperation(button.textContent))
+)
 
-//mouse clicks
-const answer = document.querySelector('#ans');
-answer.innerHTML = defaultZero;
+function appendNumber(number) {
+  if (screen.textContent === '0' || shouldResetScreen)
+    resetScreen()
+  screen.textContent += number
+}
+
+function resetScreen() {
+  screen.textContent = ''
+  shouldResetScreen = false
+}
+
+function appendPoint() {
+  if (shouldResetScreen) resetScreen()
+  if (screen.textContent === '')
+    screen.textContent = '0'
+  if (screen.textContent.includes('.')) return
+  screen.textContent += '.'
+}
+
+function deleteNumber() {
+  screen.textContent = screen.textContent
+    .toString()
+    .slice(0, -1)
+}
+
+function setOperation(operator) {
+  if (currentOperation !== null) evaluate()
+  firstOperand = screen.textContent
+  currentOperation = operator
+  shouldResetScreen = true
+}
+
+function evaluate() {
+  if (currentOperation === null || shouldResetScreen) return
+  if (currentOperation === '÷' && screen.textContent === '0') {
+    screen.textContent = "Error";
+    return
+  }
+  secondOperand = screen.textContent
+  screen.textContent = roundResult(
+    operate(currentOperation, firstOperand, secondOperand)
+  )
+  currentOperation = null
+}
+
+function roundResult(number) {
+  return Math.round(number * 1000) / 1000
+}
+
+function handleKeyboardInput(e) {
+  if (e.key >= 0 && e.key <= 9) appendNumber(e.key)
+  if (e.key === '.') appendPoint()
+  if (e.key === '=' || e.key === 'Enter') {
+    setCurrentOperator(newOperator)
+    evaluate()
+    }
+  if (e.key === 'Backspace') deleteNumber()
+  if (e.key === '+' || e.key === '-' || e.key === '*' || e.key === '/'){
+    setCurrentOperator(newOperator)
+    setOperation(convertOperator(e.key))
+  }
+}
+
+function convertOperator(keyboardOperator) {
+  if (keyboardOperator === '/') {
+    setCurrentOperator(newOperator)
+    return '÷'
+    }
+  if (keyboardOperator === '*') {
+    setCurrentOperator(newOperator)
+    return '×'
+    }
+  if (keyboardOperator === '-') {
+    setCurrentOperator(newOperator)
+    return '−'
+    }
+  if (keyboardOperator === '+') {
+    setCurrentOperator(newOperator)
+    return '+'
+    }
+}
+
+function add(a, b) {
+  return a + b
+}
+
+function substract(a, b) {
+  return a - b
+}
+
+function multiply(a, b) {
+  return a * b
+}
+
+function divide(a, b) {
+  return a / b
+}
+
+function operate(operator, a, b) {
+  a = Number(a)
+  b = Number(b)
+  switch (operator) {
+    case '+':
+      return add(a, b)
+    case '−':
+      return substract(a, b)
+    case '×':
+      return multiply(a, b)
+    case '÷':
+      if (b === 0) return null
+      else return divide(a, b)
+    default:
+      return null
+  }
+}
+
+const ad = document.querySelector('.addition');
+const s = document.querySelector('.subtract');
+const m = document.querySelector('.multiply');
+const d = document.querySelector('.divide');
+
+//keyboards keys
+clearButton.onclick = () => {
+    ad.classList.remove('active');
+    s.classList.remove('active');
+    m.classList.remove('active');
+    d.classList.remove('active');
+};
 
 function setCurrentOperator(newOperator){
     activeOperator(newOperator);
     currentOperator = newOperator;
 }
 
-ac.onclick = () => {
-    plus.classList.remove('active');
-    minus.classList.remove('active');
-    multiply.classList.remove('active');
-    divide.classList.remove('active');
-    answer.innerHTML = defaultZero;
-};
-
 function activeOperator(newOperator){
     if(currentOperator == 'NumpadAdd'){
-    plus.classList.remove('active');
+    ad.classList.remove('active');
     }
     if(currentOperator = 'NumpadMultiply'){
-    multiply.classList.remove('active');
+    m.classList.remove('active');
     }
     if(currentOperator = 'NumpadDivide'){
-    divide.classList.remove('active');
+    d.classList.remove('active');
     }
     if(currentOperator = 'NumpadSubtract'){
-    minus.classList.remove('active');
+    s.classList.remove('active');
     }
 
     if(newOperator == 'NumpadAdd'){
-        plus.classList.add('active');
+        ad.classList.add('active');
     }
     if(newOperator == 'NumpadMultiply'){
-        multiply.classList.add('active');
+        m.classList.add('active');
     }
     if(newOperator == 'NumpadDivide'){
-        divide.classList.add('active');
+        d.classList.add('active');
     }
     if(newOperator == 'NumpadSubtract'){
-        minus.classList.add('active');
+        s.classList.add('active');
     }
 }
-
-
-
-//keyboards keys
-const buttons = document.querySelector('.operator');
-
-window.addEventListener('keydown', (event) => {
-    activeOperator(event.code);
-    currentOperator = event.code;
-})
-
-plus.onclick = () => setCurrentOperator('NumpadAdd');
-minus.onclick = () => setCurrentOperator('NumpadSubtract');
-multiply.onclick = () => setCurrentOperator('NumpadMultiply');
-divide.onclick = () => setCurrentOperator('NumpadDivide');
-
-window.addEventListener('keydown',(event) => {
-    if(event.code == "Digit1" || event.code == "Numpad1"){
-        answer.innerHTML += 1;
-    }
-    if(event.code == "Digit2" || event.code == "Numpad2"){
-        answer.innerHTML += 2;
-    }
-    if(event.code == "Digit3" || event.code == "Numpad3"){
-        answer.innerHTML += 3;
-    }
-    if(event.code == "Digit4" || event.code == "Numpad4"){
-        answer.innerHTML += 4;
-    }
-    if(event.code == "Digit5" || event.code == "Numpad5"){
-        answer.innerHTML += 5;
-    }
-    if(event.code == "Digit6" || event.code == "Numpad6"){
-        answer.innerHTML += 6;
-    }
-    if(event.code == "Digit7" || event.code == "Numpad7"){
-        answer.innerHTML += 7;
-    }
-    if(event.code == "Digit8" || event.code == "Numpad8"){
-        answer.innerHTML += 8;
-    }
-    if(event.code == "Digit9" || event.code == "Numpad9"){
-        answer.innerHTML += 9;
-    }
-    if(event.code == "Digit0" || event.code == "Numpad0"){
-        answer.innerHTML += 0;
-    }
-}, true);
