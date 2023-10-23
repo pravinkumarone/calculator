@@ -16,7 +16,7 @@ header{
 .container{
     display: flex;
     flex-direction: column;
-    height: 400px;
+    height: 600px;
     align-items: center;
     justify-content: center;
     background-color:azure;
@@ -29,12 +29,12 @@ header{
     background-color: black;
     justify-content: center;
     align-items: center;
-    height: 500px;
-    width: 280px;
+    height: 600px;
+    width: 400px;
 }
 
 .screen{
-    height: 60px;
+    height: 120px;
     background-color: black;
     color: white;
     width: 100%;
@@ -48,7 +48,7 @@ header{
 
 .buttons{
     display: flex;
-    width: 250px;
+    width: 340px;
 }
 
 .numbers{
@@ -60,8 +60,8 @@ header{
 }
 
 .nums{
-    width: 50px;
-    height: 50px;
+    width: 70px;
+    height: 70px;
     text-align: center;
     margin: 5px;
     padding: 4px;
@@ -73,8 +73,8 @@ header{
 }
 
 #num-0{
-    width: 105px;
-    border-radius: 40px;
+    width: 145px;
+    border-radius: 35px;
     text-align: left;
     padding-left: 20px;
 }
@@ -86,8 +86,8 @@ header{
 }
 
 .operator, .equals{
-    width: 50px;
-    height: 50px;
+    width: 70px;
+    height: 70px;
     background-color: #FE9F0B;
     margin: 5px;
     padding: 4px;
