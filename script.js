@@ -1,18 +1,5 @@
 const defaultZero = 0;
-
 let currentOperator = '';
-
-function setCurrentOperator(newOperator){
-    activeOperator(newOperator);
-    currentOperator = newOperator;
-}
-
-const buttons = document.querySelector('.operator');
-
-window.addEventListener('keydown', (event) => {
-    activeOperator(event.code);
-    currentOperator = event.code;
-})
 
 const one = document.getElementById('num-1');
 const two = document.getElementById('num-2');
@@ -30,17 +17,27 @@ const minus = document.getElementById('minus');
 const multiply = document.getElementById('multiply');
 const divide = document.getElementById('divide');
 
-plus.onclick = () => setCurrentOperator('NumpadAdd');
-minus.onclick = () => setCurrentOperator('NumpadSubtract');
-multiply.onclick = () => setCurrentOperator('NumpadMultiply');
-divide.onclick = () => setCurrentOperator('NumpadDivide');
-
 const dot = document.getElementById('num-.');
 const equals = document.getElementById('equals');
 const ac = document.getElementById('_AC');
 const plusMinus = document.getElementById('_plus-minus');
 const percentage = document.getElementById('_percentage');
 
+const nums= document.querySelectorAll('.nums');
+nums.forEach(num => {
+    num.addEventListener('click', () => {
+        answer.innerHTML += num.textContent;
+    })
+})
+
+//mouse clicks
+const answer = document.querySelector('#ans');
+answer.innerHTML = defaultZero;
+
+function setCurrentOperator(newOperator){
+    activeOperator(newOperator);
+    currentOperator = newOperator;
+}
 
 ac.onclick = () => {
     plus.classList.remove('active');
@@ -49,6 +46,49 @@ ac.onclick = () => {
     divide.classList.remove('active');
     answer.innerHTML = defaultZero;
 };
+
+function activeOperator(newOperator){
+    if(currentOperator == 'NumpadAdd'){
+    plus.classList.remove('active');
+    }
+    if(currentOperator = 'NumpadMultiply'){
+    multiply.classList.remove('active');
+    }
+    if(currentOperator = 'NumpadDivide'){
+    divide.classList.remove('active');
+    }
+    if(currentOperator = 'NumpadSubtract'){
+    minus.classList.remove('active');
+    }
+
+    if(newOperator == 'NumpadAdd'){
+        plus.classList.add('active');
+    }
+    if(newOperator == 'NumpadMultiply'){
+        multiply.classList.add('active');
+    }
+    if(newOperator == 'NumpadDivide'){
+        divide.classList.add('active');
+    }
+    if(newOperator == 'NumpadSubtract'){
+        minus.classList.add('active');
+    }
+}
+
+
+
+//keyboards keys
+const buttons = document.querySelector('.operator');
+
+window.addEventListener('keydown', (event) => {
+    activeOperator(event.code);
+    currentOperator = event.code;
+})
+
+plus.onclick = () => setCurrentOperator('NumpadAdd');
+minus.onclick = () => setCurrentOperator('NumpadSubtract');
+multiply.onclick = () => setCurrentOperator('NumpadMultiply');
+divide.onclick = () => setCurrentOperator('NumpadDivide');
 
 window.addEventListener('keydown',(event) => {
     if(event.code == "Digit1" || event.code == "Numpad1"){
@@ -82,38 +122,3 @@ window.addEventListener('keydown',(event) => {
         answer.innerHTML += 0;
     }
 }, true);
-
-
-
-const answer = document.querySelector('#ans');
-answer.innerHTML = defaultZero;
-
-
-function activeOperator(newOperator){
-    if(currentOperator == 'NumpadAdd'){
-    plus.classList.remove('active');
-    }
-    if(currentOperator = 'NumpadMultiply'){
-    multiply.classList.remove('active');
-    }
-    if(currentOperator = 'NumpadDivide'){
-    divide.classList.remove('active');
-    }
-    if(currentOperator = 'NumpadSubtract'){
-    minus.classList.remove('active');
-    }
-
-    if(newOperator == 'NumpadAdd'){
-        plus.classList.add('active');
-    }
-    if(newOperator == 'NumpadMultiply'){
-        multiply.classList.add('active');
-    }
-    if(newOperator == 'NumpadDivide'){
-        divide.classList.add('active');
-    }
-    if(newOperator == 'NumpadSubtract'){
-        minus.classList.add('active');
-    }
-}
-

@@ -70,6 +70,14 @@ header{
     color: white;
     border-radius: 50%;
     border: none;
+    transition-duration: 0.5s;
+    &:active{
+        transform: scale(.95);
+        background: rgb(85, 85, 85);
+        color: rgb(219, 219, 219); 
+        text-decoration: none;
+        transition: all 250ms linear;
+    }
 }
 
 #num-0{
@@ -96,9 +104,18 @@ header{
     color: white;
     font-size: 20px;
     cursor: pointer;
+    &:active{
+        transform: scale(.95);
+        transition-duration: 0.5s;
+        background: white;
+        color: FE9F0B; 
+        text-decoration: none;
+        transition: all 250ms linear;
+    }
 }
 
 .operator.active{
     background-color: white;
     color: #FE9F0B;
 }
+
