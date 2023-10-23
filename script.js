@@ -7,6 +7,13 @@ function setCurrentOperator(newOperator){
     currentOperator = newOperator;
 }
 
+const buttons = document.querySelector('.operator');
+
+window.addEventListener('keydown', (event) => {
+    activeOperator(event.code);
+    currentOperator = event.code;
+})
+
 const one = document.getElementById('num-1');
 const two = document.getElementById('num-2');
 const three = document.getElementById('num-3');
@@ -23,24 +30,16 @@ const minus = document.getElementById('minus');
 const multiply = document.getElementById('multiply');
 const divide = document.getElementById('divide');
 
-plus.onclick = () => setCurrentOperator('plus');
-minus.onclick = () => setCurrentOperator('minus');
-multiply.onclick = () => setCurrentOperator('multiply');
-divide.onclick = () => setCurrentOperator('divide');
+plus.onclick = () => setCurrentOperator('NumpadAdd');
+minus.onclick = () => setCurrentOperator('NumpadSubtract');
+multiply.onclick = () => setCurrentOperator('NumpadMultiply');
+divide.onclick = () => setCurrentOperator('NumpadDivide');
 
 const dot = document.getElementById('num-.');
 const equals = document.getElementById('equals');
 const ac = document.getElementById('_AC');
 const plusMinus = document.getElementById('_plus-minus');
 const percentage = document.getElementById('_percentage');
-
-
-const buttons = document.querySelector('.numbers > button');
-
-function number(num){
-    answer.innerHTML += num; 
-}
-
 
 
 ac.onclick = () => {
@@ -91,29 +90,29 @@ answer.innerHTML = defaultZero;
 
 
 function activeOperator(newOperator){
-    if(currentOperator == 'plus'){
+    if(currentOperator == 'NumpadAdd'){
     plus.classList.remove('active');
     }
-    if(currentOperator = 'multiply'){
+    if(currentOperator = 'NumpadMultiply'){
     multiply.classList.remove('active');
     }
-    if(currentOperator = 'divide'){
+    if(currentOperator = 'NumpadDivide'){
     divide.classList.remove('active');
     }
-    if(currentOperator = 'minus'){
+    if(currentOperator = 'NumpadSubtract'){
     minus.classList.remove('active');
     }
 
-    if(newOperator == 'plus'){
+    if(newOperator == 'NumpadAdd'){
         plus.classList.add('active');
     }
-    if(newOperator == 'multiply'){
+    if(newOperator == 'NumpadMultiply'){
         multiply.classList.add('active');
     }
-    if(newOperator == 'divide'){
+    if(newOperator == 'NumpadDivide'){
         divide.classList.add('active');
     }
-    if(newOperator == 'minus'){
+    if(newOperator == 'NumpadSubtract'){
         minus.classList.add('active');
     }
 }
