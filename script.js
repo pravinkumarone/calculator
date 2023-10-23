@@ -1,8 +1,4 @@
 const defaultZero = 0;
-const addition = 'addition+';
-const subtraction = 'subtraction-';
-const multiplication = 'multiplication*';
-const division = 'division/';
 
 let currentOperator = '';
 
@@ -27,6 +23,11 @@ const minus = document.getElementById('minus');
 const multiply = document.getElementById('multiply');
 const divide = document.getElementById('divide');
 
+plus.onclick = () => setCurrentOperator('plus');
+minus.onclick = () => setCurrentOperator('minus');
+multiply.onclick = () => setCurrentOperator('multiply');
+divide.onclick = () => setCurrentOperator('divide');
+
 const dot = document.getElementById('num-.');
 const equals = document.getElementById('equals');
 const ac = document.getElementById('_AC');
@@ -34,40 +35,35 @@ const plusMinus = document.getElementById('_plus-minus');
 const percentage = document.getElementById('_percentage');
 
 
-
-const percent = 'percentage';
-const clear = 'clear';
-const plusminus = 'plus-minus';
-const decimal = 'decimal';
-
-plus.onclick = () => setCurrentOperator('addition+');
-minus.onclick = () => setCurrentOperator('subtraction-');
-multiply.onclick = () => setCurrentOperator('multiplication*');
-divide.onclick = () => setCurrentOperator('division/');
-
 const answer = document.querySelector('#ans');
 answer.innerHTML = defaultZero;
 
 
 function activeOperator(newOperator){
-    if(currentOperator == 'addition+'){
-        plus.classList.remove('active');
-    } else if(currentOperator = 'subtraction-'){
-        minus.classList.remove('active');
-    } else if(currentOperator = 'multiplication*'){
-        multiply.classList.remove('active');
-    } else if(currentOperator = 'division/'){
-        divide.classList.remove('active');
+    if(currentOperator == 'plus'){
+    plus.classList.remove('active');
+    }
+    if(currentOperator = 'multiply'){
+    multiply.classList.remove('active');
+    }
+    if(currentOperator = 'divide'){
+    divide.classList.remove('active');
+    }
+    if(currentOperator = 'minus'){
+    minus.classList.remove('active');
     }
 
-    if(newOperator == 'addition+'){
+    if(newOperator == 'plus'){
         plus.classList.add('active');
-    } else if(newOperator == 'subtraction-'){
-        minus.classList.add('active');
-    } else if(newOperator == 'multiplication*'){
+    }
+    if(newOperator == 'multiply'){
         multiply.classList.add('active');
-    } else if(newOperator == 'division/'){
+    }
+    if(newOperator == 'divide'){
         divide.classList.add('active');
+    }
+    if(newOperator == 'minus'){
+        minus.classList.add('active');
     }
 }
 
