@@ -1,186 +1,162 @@
-let firstOperand = '';
-let secondOperand = '';
-let shouldResetScreen = false;
-let currentOperator = null;
+  let firstOperand = '';
+  let secondOperand = '';
+  let currentOperator = null;
+  let shouldResetScreen = false;
 
-const numberButtons = document.querySelectorAll('[data-number]')
-const operatorButtons = document.querySelectorAll('[data-operator]')
-const equalsButton = document.getElementById('equalsBtn')
-const deleteButton = document.querySelector('.deleteBtn')
-const pointButton = document.getElementById('pointBtn')
-const screen = document.getElementById('screen')
+  const screen = document.getElementById('screen');
+  const numberButtons = document.querySelectorAll('[data-number]');
+  const operatorButtons = document.querySelectorAll('[data-operator]');
+  const equalsButton = document.getElementById('equalsBtn');
+  const allClearButton = document.querySelector('.allclearBtn');
 
-window.addEventListener('keydown', handleKeyboardInput);
-equalsButton.addEventListener('click', evaluate)
-deleteButton.addEventListener('click', deleteNumber)
-pointButton.addEventListener('click', appendPoint)
+  numberButtons.forEach((button) => {
+    button.addEventListener('click', () => appendNumber(button.textContent));
+  });
 
-numberButtons.forEach((button) =>
-  button.addEventListener('click', () => appendNumber(button.textContent))
-)
+  operatorButtons.forEach((button) => {
+    button.addEventListener('click', () => setOperator(button.textContent));
+  });
 
-operatorButtons.forEach((button) =>
-  button.addEventListener('click', () => setOperation(button.textContent))
-)
+  equalsButton.addEventListener('click', evaluate);
+  allClearButton.addEventListener('click', clear);
 
-function appendNumber(number) {
-  if (screen.textContent === '0' || shouldResetScreen)
-    resetScreen()
-  screen.textContent += number
-}
+  document.addEventListener('keydown', (event) => {
+    const key = event.key;
+    if (key >= '0' && key <= '9') {
+      appendNumber(key);
+    } else if (key === '.' && !screen.textContent.includes('.')) {
+      appendNumber(key);
+    } else if (key === '+' || key === '-' || key === '*' || key === '/') {
+      setOperator(key);
+    } else if (key === 'Enter') {
+      evaluate();
+    } else if (key === 'Backspace') {
+      clear();
+    }
+  });
 
-function resetScreen() {
-  screen.textContent = ''
-  shouldResetScreen = false
-}
+  function appendNumber(number) {
+    if (screen.textContent === '0' || shouldResetScreen) {
+      resetScreen();
+    }
 
-function appendPoint() {
-  if (shouldResetScreen) resetScreen()
-  if (screen.textContent === '')
-    screen.textContent = '0'
-  if (screen.textContent.includes('.')) return
-  screen.textContent += '.'
-}
+    if (screen.textContent.replace(/\D/g, '').length >= 10) {
+      return;
+    }
 
-function deleteNumber() {
-  screen.textContent = screen.textContent
-    .toString()
-    .slice(0, -1)
-}
+    if (screen.scrollWidth > screen.clientWidth) {
+      return;
+    }
 
-function setOperation(operator) {
-  if (currentOperation !== null) evaluate()
-  firstOperand = screen.textContent
-  currentOperation = operator
-  shouldResetScreen = true
-}
-
-function evaluate() {
-  if (currentOperation === null || shouldResetScreen) return
-  if (currentOperation === '÷' && screen.textContent === '0') {
-    screen.textContent = "Error";
-    return
+    screen.textContent += number;
+    allClearButton.innerHTML = 'C';
   }
-  secondOperand = screen.textContent
-  screen.textContent = roundResult(
-    operate(currentOperation, firstOperand, secondOperand)
-  )
-  currentOperation = null
-}
 
-function roundResult(number) {
-  return Math.round(number * 1000) / 1000
-}
-
-function handleKeyboardInput(e) {
-  if (e.key >= 0 && e.key <= 9) appendNumber(e.key)
-  if (e.key === '.') appendPoint()
-  if (e.key === '=' || e.key === 'Enter') {
-    setCurrentOperator(newOperator)
-    evaluate()
-    }
-  if (e.key === 'Backspace') deleteNumber()
-  if (e.key === '+' || e.key === '-' || e.key === '*' || e.key === '/'){
-    setCurrentOperator(newOperator)
-    setOperation(convertOperator(e.key))
+  function resetScreen() {
+    screen.textContent = '';
+    shouldResetScreen = false;
   }
-}
 
-function convertOperator(keyboardOperator) {
-  if (keyboardOperator === '/') {
-    setCurrentOperator(newOperator)
-    return '÷'
+  function setOperator(operator) {
+    if (currentOperator !== null) {
+      evaluate();
     }
-  if (keyboardOperator === '*') {
-    setCurrentOperator(newOperator)
-    return '×'
+
+    if (operator === '+/-') {
+      if (screen.textContent !== '0') {
+        // Check if the current number is positive or negative
+        if (screen.textContent.startsWith('-')) {
+          // If it's negative, make it positive
+          screen.textContent = screen.textContent.slice(1);
+        } else {
+          // If it's positive, make it negative
+          screen.textContent = '-' + screen.textContent;
+        }
+      }
+    } else if (operator === '%') {
+      screen.textContent = (parseFloat(screen.textContent) / 100).toString();
+    } else {
+      firstOperand = screen.textContent;
+      currentOperator = operator;
+      shouldResetScreen = true;
+      activateOperatorButton(operator);
     }
-  if (keyboardOperator === '-') {
-    setCurrentOperator(newOperator)
-    return '−'
-    }
-  if (keyboardOperator === '+') {
-    setCurrentOperator(newOperator)
-    return '+'
-    }
-}
-
-function add(a, b) {
-  return a + b
-}
-
-function substract(a, b) {
-  return a - b
-}
-
-function multiply(a, b) {
-  return a * b
-}
-
-function divide(a, b) {
-  return a / b
-}
-
-function operate(operator, a, b) {
-  a = Number(a)
-  b = Number(b)
-  switch (operator) {
-    case '+':
-      return add(a, b)
-    case '−':
-      return substract(a, b)
-    case '×':
-      return multiply(a, b)
-    case '÷':
-      if (b === 0) return null
-      else return divide(a, b)
-    default:
-      return null
   }
-}
 
-const ad = document.querySelector('.addition');
-const s = document.querySelector('.subtract');
-const m = document.querySelector('.multiply');
-const d = document.querySelector('.divide');
+  function evaluate() {
+    if (currentOperator === null || shouldResetScreen) {
+      return;
+    }
+  
+    secondOperand = screen.textContent;
+  
+    if (currentOperator === '÷' && secondOperand === '0') {
+      screen.textContent = 'Error';
+    } else {
+      const result = calculate(firstOperand, currentOperator, secondOperand);
+      if (!isNaN(result)) {
+        screen.textContent = limitToTenDigits(result);
+      } else {
+        screen.textContent = 'Error';
+      }
+      deactivateOperatorButtons();
+    }
+  
+    currentOperator = null;
+  }
 
-//keyboards keys
-clearButton.onclick = () => {
-    ad.classList.remove('active');
-    s.classList.remove('active');
-    m.classList.remove('active');
-    d.classList.remove('active');
-};
+  function limitToTenDigits(number) {
+    const strNumber = number.toString();
+    if (strNumber.includes('.') && strNumber.length > 11) {
+      return parseFloat(number).toPrecision(10);
+    } else if (strNumber.length > 10) {
+      return parseFloat(number).toPrecision(10);
+    }
+    return number;
+  }
 
-function setCurrentOperator(newOperator){
-    activeOperator(newOperator);
-    currentOperator = newOperator;
-}
+  function clear() {
+    screen.textContent = '0';
+    firstOperand = '';
+    secondOperand = '';
+    currentOperator = null;
+    shouldResetScreen = false;
+    deactivateOperatorButtons();
+  }
 
-function activeOperator(newOperator){
-    if(currentOperator == 'NumpadAdd'){
-    ad.classList.remove('active');
-    }
-    if(currentOperator = 'NumpadMultiply'){
-    m.classList.remove('active');
-    }
-    if(currentOperator = 'NumpadDivide'){
-    d.classList.remove('active');
-    }
-    if(currentOperator = 'NumpadSubtract'){
-    s.classList.remove('active');
-    }
+  function calculate(a, operator, b) {
+    a = parseFloat(a);
+    b = parseFloat(b);
 
-    if(newOperator == 'NumpadAdd'){
-        ad.classList.add('active');
+    switch (operator) {
+      case '+':
+        return (a + b).toString();
+      case '-':
+        return (a - b).toString();
+      case '*':
+        return (a * b).toString();
+      case '/':
+        if (b === 0) {
+          return 'Error';
+        }
+        return (a / b).toString();
+      default:
+        return 'Error';
     }
-    if(newOperator == 'NumpadMultiply'){
-        m.classList.add('active');
-    }
-    if(newOperator == 'NumpadDivide'){
-        d.classList.add('active');
-    }
-    if(newOperator == 'NumpadSubtract'){
-        s.classList.add('active');
-    }
-}
+  }
+
+  function activateOperatorButton(operator) {
+    operatorButtons.forEach((button) => {
+      if (button.textContent === operator) {
+        button.classList.add('active');
+      } else {
+        button.classList.remove('active');
+      }
+    });
+  }
+
+  function deactivateOperatorButtons() {
+    operatorButtons.forEach((button) => {
+      button.classList.remove('active');
+    });
+  }

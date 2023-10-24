@@ -8,13 +8,12 @@
     <title>Calculator</title>
 </head>
 <body>
-    <header>Calculator</header>
     <div class="container">
         <div class="cal">
-            <div class="screen"><p id="screen"></p></div>
+            <div class="screen"><p id="screen">0</p></div>
             <div class="buttons">
                 <div class="numbers">
-                    <button class="btn num clearBtn deleteBtn" onclick="this.blur();" data-number>C</button>
+                    <button class="btn num clearBtn allclearBtn" onclick="this.blur();" data-number>AC</button>
                     <button class="btn num plus_minus" onclick="this.blur();" data-number>+/-</button>
                     <button class="btn num percentage" onclick="this.blur();" data-number>%</button>
                     <button class="btn operator divide" onclick="this.blur();" data-operator>÷</button>
@@ -36,6 +35,7 @@
                 </div>
             </div>
         </div>
+        <footer><p>Copyright &copy; pravinkumarone <a href="https://github.com/pravinkukmarone" rel="noreferrer noopener"><img src="svg/github.svg" alt="githug logo"></as></p></footer>
     </div>
 </body>
 </html>

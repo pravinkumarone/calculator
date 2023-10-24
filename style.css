@@ -7,19 +7,13 @@
     font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-header{
-    text-align: center;
-    height: 60px;
-    padding: 20px;
-}
-
 .container{
     display: flex;
     flex-direction: column;
-    height: 600px;
     align-items: center;
     justify-content: center;
-    background-color:azure;
+    margin-top: 20px;
+    row-gap: 10px;
 }
 
 .cal{
@@ -41,7 +35,8 @@ header{
 }
 .screen>p{
     text-align: right;
-    padding: 10px 40px;
+    margin: 10px 0px;
+    padding: 10px 50px;
     font-size: 40px;
     font-weight: 300;
 }
@@ -87,7 +82,7 @@ header{
     padding-left: 20px;
 }
 
-.clear, .plus_minus, .percentage{
+.clearBtn, .allclearBtn, .plus_minus, .percentage{
     background-color: #A4A5A4;
     color: #1C1C1C;
     font-weight: 600;
@@ -119,3 +114,11 @@ header{
     color: #FE9F0B;
 }
 
+footer p{
+    text-align: center;
+}
+
+footer img {
+    height: 18px;
+    width: 18px;
+}
